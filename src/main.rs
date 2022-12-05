@@ -4,8 +4,7 @@ use cloudflare::endpoints::{dns, zone};
 use cloudflare::framework::{
     apiclient::ApiClient,
     auth::Credentials,
-    response::{ApiFailure, ApiResponse, ApiResult},
-    Environment, HttpApiClient, HttpApiClientConfig, OrderDirection,
+    Environment, HttpApiClient, HttpApiClientConfig,
 };
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -63,10 +62,10 @@ impl Diff {
 impl From<model::Record> for dns::DnsContent {
     fn from(r: model::Record) -> Self {
         match r {
-            model::Record::A(name, ip) => dns::DnsContent::A {
+            model::Record::A(_name, ip) => dns::DnsContent::A {
                 content: ip.parse().unwrap(),
             },
-            model::Record::Cname(name, cname) => dns::DnsContent::CNAME { content: cname },
+            model::Record::Cname(_name, cname) => dns::DnsContent::CNAME { content: cname },
         }
     }
 }
